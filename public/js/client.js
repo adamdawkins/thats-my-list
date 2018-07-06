@@ -6,29 +6,22 @@ var BLACK_ROCKET_ICON = 'https://cdn.glitch.com/1b42d7fe-bda8-4af8-a6c8-eff0cea9
 
 window.TrelloPowerUp.initialize({
 	'list-actions': function (t) {
-		return t.list('name', 'id')
-			.then(function (list) {
-        console.log('list', {list})
+    console.log({members: t.board('members')})
+		return t.board('members')
+			.then(function (board) {
+        console.log(JSON.stringify(board, null, 2))
 				return [{
 					text: "Assign to...",
 					callback: function (t) {
-						// Trello will call this if the user clicks on this action
-						// we could for example open a new popover...
-						t.popup({
-							title: 'Assign users',
-							items: [{
-								text: 'User 1',
-								callback: function (t, opts) { alert('User 1') }
-							}, {
-								text: 'User 2',
-								callback: function (t, opts) { alert('User 2') }
-							}, {
-								text: 'User 3',
-								callback: function (t, opts) { alert('User 3') }
-							}]
-						});
-					}
-				}];
+					  t.popup({
+							title: 'Assign these cards to...',
+							items: board.members.map(({ id, fullName}) => ({
+							  text: fullName,
+							  callback: function(t, opts) { alert(`member ${id} selected`); return t.closePopup() }
+							}))
+            })
+				  }
+        }];
 			});
 	}
 });
