@@ -17,13 +17,13 @@ TrelloPowerUp.initialize({
 							title: 'Snooze Card',
 							items: [{
 								text: 'User 1',
-								callback: function (t, opts) { alert('User 1') }
+								callback: function (t, opts) { alert('User 1'); return t.closePopup() }
 							}, {
 								text: 'User 2',
-								callback: function (t, opts) { alert('User 2') }
+								callback: function (t, opts) { alert('User 2'); return t.closePopup() }
 							}, {
 								text: 'User 3',
-								callback: function (t, opts) { alert('User 3') }
+								callback: function (t, opts) { alert('User 3'); return t.closePopup() }
 							}]
 						});
 					}
