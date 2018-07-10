@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://api.trello.com/1/client.js?key=46de44619da128276ba5dda20e33d5e1"></script>
+  </head>
+  <body>
+    <button id="auth-btn" type="submit" class="mod-primary">Authorize That's My List to Access Trello</button>
+    <script>
+      $('#auth-btn').on('click', function(){
+       window.Trello.authorize({
+        type: 'popup',
+        name: 'That\'s My List',
+        scope: {
+          read: true,
+          write: true },
+        expiration: 'never',
+        success: (token) => {
+          var token = window.location.hash.substring(7);
+         console.log('Successful auth', token)
+        },
+        error: (e) => {
+         console.log('Failed auth', e)
+        }
+});
+      });
+    </script>
+  </body>
+</html>
